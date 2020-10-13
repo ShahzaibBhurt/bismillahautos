@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Acounts History</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/public/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="/public/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="/public/dist/css/adminlte.css">
+  <link rel="stylesheet" href="/public/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="/public/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css">
+  <link rel="stylesheet" href="/public/css/style.css">    <style>
+        .col-sm-12{
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+  <nav class="main-header navbar navbar-expand navbar-success navbar-dark">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+        <div class="image">
+            <span class="hidden-xs"><%=user.username %></span>
+            <i class="fas fa-arrow-down"></i>
+        </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <a href="#" class="dropdown-item">
+            <div class="media">
+              <div class="media-body">
+                <h3 class="dropdown-item-title">
+                  <%=user.username %>
+                </h3>
+                <p class="text-sm">Administrator</p>
+                  <button type="button" class="w-50 d-inline btn btn-outline-info btn-sm" onclick="window.location.href='/edit_profile'">Profile</button>
+                  <button type="button" class="w-50 d-inline btn btn-outline-info btn-sm" onclick="window.location.href='/logout'">Logout</button>
+              </div>
+            </div>
+          </a>
+          </div>
+      </li>
+    </ul>
+  </nav>
+  <aside class="main-sidebar elevation-4 sidebar-light-primary">
+    <a href="/order" class="brand-link" align="center">
+      <img src="/public/images/logo.png" alt="Brand Logo" class="img-responsive">
+    </a>
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-header"><b>MENU</b></li>
+          <li class="nav-item">
+            <a href="/order"class="nav-link">
+              <i class="page-icon metismenu-icon pe-7s-note2"></i>
+              <p>Order</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/letter_picking"class="nav-link">
+              <i class="page-icon metismenu-icon pe-7s-credit"></i>
+              <p>Letter Picking</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a class="nav-link active">
+              <i class="nav-icon metismenu-icon pe-7s-id"></i>
+              <p>
+                Accounts
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview sub-menu-line">
+              <li class="nav-item ">
+                  <a href="/create_customer_account" class="nav-link">
+                  <p>Customer</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/create_supplier_account" class="nav-link">
+                  <p>Supplier</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active">
+                  <p>Accounts List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon metismenu-icon pe-7s-cash"></i>
+              <p>
+                Payments
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview sub-menu-line">
+              <li class="nav-item">
+                <a href="/customer_payments" class="nav-link">
+                  <p>Customer Payment</p>
+                </a>
+              </li>
+            <li class="nav-item">
+                <a href="/supplier_payments" class="nav-link">
+                  <p>Supplier Payment</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon metismenu-icon pe-7s-graph"></i>
+              <p>
+                Products
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview sub-menu-line">
+              <li class="nav-item">
+                <a href="/product_entry" class="nav-link">
+                  <p>Product Entry</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/product_list" class="nav-link">
+                  <p>Product List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon metismenu-icon pe-7s-graph3"></i>
+              <p>
+                History
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview sub-menu-line">
+              <li class="nav-item">
+                <a href="/purchase_history" class="nav-link">
+                  <p>Purchase History</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/sales_history" class="nav-link">
+                  <p>Sales History</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">
+            <i></i>Accouts List Customer/Supplier</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card card-default">
+                      <div class="card-header bg-info">
+                        <h3 class="card-title">Customer</h3>
+                      </div>
+                      <div class="card-body">        
+                          <table id="customer_table" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                              <th></th>
+                              <th>Account Number</th>
+                              <th>Name</th>
+                              <th>Cast</th>
+                              <th>Number</th>
+                              <th>CNIC</th>
+                              <th>Address</th>
+                              <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                          </table>
+                      </div>
+                    </div>
+              </div>
+          </div>
+      </div>
+    </section>
+      <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card card-default">
+                      <div class="card-header bg-info">
+                        <h3 class="card-title">Suppliers</h3>
+                      </div>
+                      <div class="card-body">        
+                          <table id="supplier_table" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                              <th></th>
+                              <th>Company Name</th>
+                              <th>Company Address</th>
+                              <th>Company Number</th>
+                              <th>Date</th>
+                              
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                          </table>
+                      </div>
+                    </div>
+              </div>
+          </div>
+      </div>
+    </section>  
+  </div>
+<div class="modal fade" id="CustomerListModal">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title CustomerTitle"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xl-3 col-lg-4 col-sm-6">
+            <label>From:</label>
+            <input type="date" id="min" name="min">
+          </div>
+          <div class="col-xl-3 col-lg-4 col-sm-6">
+            <label>To:</label>
+            <input type="date" id="max" name="max">
+          </div>
+          <div class="col-xl-6 col-lg-4 col-sm-12">
+            <input type="button" id="printCus" class="btn btn-success btn-sm" style="float: right;" value="Print" >
+          </div>
+        </div>
+        <table id="CustomerLedgerTable" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Motor Type</th>
+            <th>CC</th>
+            <th>Color</th>
+            <th>Engine Number</th>
+            <th>Chasis Number</th>
+            <th>Payment Type</th>
+            <th>Description</th>
+            <th>Credit</th>
+            <th>Debit</th>
+            <th>Balance</th>
+            <th>Date</th>
+          </tr>
+          </thead>
+          <tfoot>
+            <tr style="outline: 2px solid;background: darkgray;">
+              <td></td>
+              <td>Total</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="SupplierListModal">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title SupplierTitle"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xl-3 col-lg-4 col-sm-6">
+            <label>From:</label>
+            <input type="date" id="SupMin" name="min">
+          </div>
+          <div class="col-xl-3 col-lg-4 col-sm-6">
+            <label>To:</label>
+            <input type="date" id="SupMax" name="max">
+          </div>
+          <div class="col-xl-6 col-lg-4 col-sm-12">
+            <input type="button" id="printSup" class="btn btn-success btn-sm" style="float: right;" value="Print" >
+          </div>
+        </div>
+        <table id="SupplierLedgerTable" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Model</th>
+            <th>Motor Type</th>
+            <th>CC</th>
+            <th>Color</th>
+            <th>Engine Number</th>
+            <th>Chasis Number</th>
+            <th>Description</th>
+            <th>Credit</th>
+            <th>Debit</th>
+            <th>Balance</th>
+            <th>Date</th>
+          </tr>
+          </thead>
+          <tfoot>
+            <tr style="outline: 2px solid;background: darkgray;">
+              <td></td>
+              <td>Total</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="main-footer">
+  <strong>Copyright 2020 | All Rights Reserved to BISMILLAH AUTOS | Developed by</strong>
+  <a href="url"><img src="/public/images/MWlogo.png"style="width:9%;"></a>
+</footer>
+</div>
+<script src="/public/plugins/jquery/jquery.min.js"></script>
+<script src="/public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/public/plugins/datatables/jquery.dataTables.js"></script>
+<script src="/public/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="/public/dist/js/adminlte.min.js"></script>
+<script src="/public/js/moment.min.js"></script>
+<script type="text/javascript" src="/public/js/printThis.js"></script>
+<script>
+    $(function () {
+    var CustomerTable = $("#customer_table").DataTable({
+      order: [0, "desc"],
+      'columnDefs': [
+         {
+            'targets': 0,
+            'data': null,
+            'searchable': false,
+            'orderable': false,
+            'defaultContent': '<button type="button" class="btn btn-success btn-sm view" data-toggle="modal" data-target="#CustomerListModal">View</button>'
+         },
+        
+      ]
+    });
+    var SupplierTable = $("#supplier_table").DataTable({
+      order: [0, "desc"],
+      'columnDefs': [
+         {
+            'targets': 0,
+            'data': null,
+            'searchable': false,
+            'orderable': false,
+            'defaultContent': '<button type="button" class="btn btn-success btn-sm view" data-toggle="modal" data-target="#SupplierListModal">View</button>'
+         },
+        
+      ]
+    });
+    var C_table = $("#CustomerLedgerTable").DataTable({
+      order: [0, 'desc'],
+      info: false,
+      retrieve: true,
+			"footerCallback": function ( row, data, start, end, display ) {
+				var api = this.api();
+				nb_cols = api.columns().nodes().length;
+				var j = 10;
+				while(j < nb_cols){
+          if(j==12){
+            var pageTotal = api
+                .column(j, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return Number(b);
+                }, 0 );
+          }else{
+            var pageTotal = api
+                .column(j, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return Number(a) + Number(b);
+                }, 0 );
+          }
+          $( api.column( j ).footer() ).html(pageTotal);
+					j++;
+				} 
+			}
+    });
+    var S_table = $("#SupplierLedgerTable").DataTable({
+      order: [0, 'asc'],
+      info: false,
+      retrieve: true,
+      'columnDefs': [
+         {
+            'targets': 0,
+            'data': null,
+            'searchable': false,
+            'orderable': false,
+            'defaultContent': '<a class="edit"><i class="fa fa-edit"></i></a>'
+         }
+      ],
+      "autoWidth": true,
+			"footerCallback": function ( row, data, start, end, display ) {
+				var api = this.api();
+				nb_cols = api.columns().nodes().length;
+				var j = 8;
+				while(j < nb_cols){
+          if(j == 10){
+            var pageTotal = api
+                .column(j, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return Number(b);
+                }, 0 );
+          }else{
+            var pageTotal = api
+                .column(j, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return Number(a) + Number(b);
+                }, 0 );
+          }
+          $( api.column( j ).footer() ).html(pageTotal);
+					j++;
+				} 
+			}
+    });
+    $('#customer_table').on('click', '.view', function(){
+      var data = CustomerTable.row($(this).closest('tr')).data();
+      var c_id = data[1]
+      var name = data[2]
+      $('#CustomerLedgerTable').DataTable().clear().draw();
+          var parameters = {user_id: c_id}
+          $.get( '/customersLedger', parameters, function(data) {
+            if(data.length > 0){
+              $.each(data, function(index){
+                $('#CustomerLedgerTable').DataTable().row.add([
+                  '<p class="d-none">'+data[index].serial_number+'</p>',
+                  data[index].brand,
+                  data[index].model, 
+                  data[index].motor_type,
+                  data[index].cc, 
+                  data[index].color,
+                  data[index].engine_number,
+                  data[index].chasis_number,
+                  data[index].payment_type,
+                  data[index].description,
+                  data[index].total_price,
+                  data[index].cash,
+                  data[index].balance,
+                  moment(data[index].date).format("DD/MM/YYYY")
+                ]).draw();
+              })
+            }
+          })
+          $('.CustomerTitle').text(c_id+' : '+name)
+          $('#min').val('')
+          $('#max').val('')
+          $.fn.dataTable.ext.search.pop()
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var min = $('#min').val()
+                var max  = $('#max').val();
+                if(min) min = moment($('#min').val()).format("DD/MM/YYYY")
+                if(max) max = moment($('#max').val()).format("DD/MM/YYYY")
+                var createdAt = data[13] || 0;
+                min=min.substring(6,10) + min.substring(3,5)+ min.substring(0,2);
+                max=max.substring(6,10) + max.substring(3,5)+ max.substring(0,2);
+                createdAt=createdAt.substr(6,4) + createdAt.substr(3,2)+ createdAt.substr(0,2);
+                if (min == "" && max == "") { return true; }
+                if (min == "" && createdAt <= max) { return true;}
+                if(max == "" && createdAt >= min) {return true;}
+                if (createdAt <= max && createdAt >= min) { return true; }
+                return false;
+            }
+          );
+          $('#min, #max').change( function() {
+              C_table.draw();
+          });
+   });
+   $('#supplier_table').on('click', '.view', function(){
+      var data = SupplierTable.row($(this).closest('tr')).data();
+      var company_name = data[1]
+      $('#SupplierLedgerTable').DataTable().clear().draw();
+          var parameters = {company_name: company_name}
+          $.get( '/SuppliersLedger', parameters, function(data) {
+            if(data.length > 0){
+              $.each(data, function(index){
+                $('#SupplierLedgerTable').DataTable().row.add([
+                  '<p class="d-none">'+data[index].id+'</p>',
+                  data[index].model, 
+                  data[index].motor_type,
+                  data[index].cc,
+                  data[index].color,
+                  data[index].engin_number,
+                  data[index].chasis_number,
+                  data[index].description,
+                  data[index].cash,
+                  data[index].total_price,
+                  data[index].balance,
+                  moment(data[index].e_date).format("DD/MM/YYYY")
+                ]).draw();
+              })
+            }
+          })
+          $('.SupplierTitle').text(company_name)
+          $('#SupMin').val('')
+          $('#SupMax').val('')
+          $.fn.dataTable.ext.search.pop()
+          $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var min = $('#SupMin').val()
+                var max  = $('#SupMax').val();
+                if(min) min = moment($('#SupMin').val()).format("DD/MM/YYYY")
+                if(max) max = moment($('#SupMax').val()).format("DD/MM/YYYY")
+                var createdAt = data[11] || 0;
+                min=min.substring(6,10) + min.substring(3,5)+ min.substring(0,2);
+                max=max.substring(6,10) + max.substring(3,5)+ max.substring(0,2);
+                createdAt=createdAt.substring(6,10) + createdAt.substring(3,5)+ createdAt.substring(0,2);
+                if (min == "" && max == "") { return true; }
+                if (min == "" && createdAt <= max) { return true;}
+                if(max == "" && createdAt >= min) {return true;}
+                if (createdAt <= max && createdAt >= min) { return true; }
+                return false;
+            }
+          );
+          $('#SupMin, #SupMax').change( function() {
+              S_table.draw();
+          });
+   });
+    $.get( '/customersList', function(data) {
+      if(data.length > 0){
+        $.each(data, function(index){
+          $('#customer_table').DataTable().row.add([
+            data[index].id,
+            data[index].serial_number,
+            data[index].name, 
+            data[index].cast,
+            data[index].number, 
+            data[index].cnic,
+            data[index].address,
+            moment(data[index].account_creation_date).format("DD/MM/YYYY")
+          ]).draw();
+        })
+      }
+    })
+    $.get( '/supplierList', function(data) {
+      if(data.length > 0){
+        $.each(data, function(index){
+          $('#supplier_table').DataTable().row.add([
+            data[index].id,
+            data[index].brand_name,
+            data[index].address, 
+            data[index].number,
+            moment(data[index].creation_date).format("DD/MM/YYYY")
+          ]).draw();
+        })
+      }
+    })
+    $('#printSup').click(function(){
+      $( function () {
+        $('#SupplierLedgerTable').printThis({
+          importCSS: true,
+          importStyle: true,
+          printContainer: true,
+          removeInline: false, 
+          removeInlineSelector: "*",
+          header: $('.SupplierTitle').text()+' General Ledger',
+          footer: null, 
+          base: false
+        });
+      });
+    })
+    $('#printCus').click(function(){
+      $( function () {
+        $('#CustomerLedgerTable').printThis({
+          importCSS: true,
+          importStyle: true,
+          printContainer: true,
+          removeInline: false, 
+          removeInlineSelector: "*",
+          header: $('.CustomerTitle').text()+' General Ledger',
+          footer: null, 
+          base: false
+        });
+      });
+    })
+  });
+	</script>
+</body>
+</html>

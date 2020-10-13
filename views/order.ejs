@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Order</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/public/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="/public/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="/public/dist/css/adminlte.css">
+  <link rel="stylesheet" href="/public/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="/public/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+  <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="/public/js/jquery.json-2.4.min.js"></script>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+  <nav class="main-header navbar navbar-expand navbar-success navbar-dark">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+        <div class="image">
+            <span class="hidden-xs"><%=user.username %></span>
+            <i class="fas fa-arrow-down"></i>
+        </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <a href="#" class="dropdown-item">
+            <div class="media">
+              <div class="media-body">
+                <h3 class="dropdown-item-title">
+                  <%=user.username %>
+                </h3>
+                <p class="text-sm">Administrator</p>
+                  <button type="button" class="w-50 d-inline btn btn-outline-info btn-sm" onclick="window.location.href='/edit_profile'">Profile</button>
+                  <button type="button" class="w-50 d-inline btn btn-outline-info btn-sm" onclick="window.location.href='/logout'">Logout</button>
+              </div>
+            </div>
+          </a>
+          </div>
+      </li>
+    </ul>
+  </nav>
+  <aside class="main-sidebar elevation-4 sidebar-light-primary">
+    <a class="brand-link" align="center">
+      <img src="/public/images/logo.png" alt="Brand Logo" class="img-responsive">
+    </a>
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-header"><b>MENU</b></li>
+          <li class="nav-item">
+            <a class="nav-link active">
+              <i class="page-icon metismenu-icon pe-7s-note2"></i>
+              <p>Order</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/letter_picking"class="nav-link">
+              <i class="page-icon metismenu-icon pe-7s-credit"></i>
+              <p>Letter Picking</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon metismenu-icon pe-7s-id"></i>
+              <p>
+                Accounts
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview sub-menu-line">
+              <li class="nav-item ">
+                  <a href="/create_customer_account" class="nav-link">
+                  <p>Customer</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/create_supplier_account" class="nav-link">
+                  <p>Supplier</p>
+                </a>
+              </li>
+              <li class="nav-item">
+            <a href="/accounts_list" class="nav-link ">
+                  <p>Accounts List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon metismenu-icon pe-7s-cash"></i>
+              <p>
+                Payments
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview sub-menu-line">
+              <li class="nav-item">
+                <a href="/customer_payments" class="nav-link">
+                  <p>Customer Payment</p>
+                </a>
+              </li>
+            <li class="nav-item">
+                <a href="/supplier_payments" class="nav-link">
+                  <p>Supplier Payment</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon metismenu-icon pe-7s-graph"></i>
+              <p>
+                Products
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview sub-menu-line">
+              <li class="nav-item">
+                <a href="/product_entry" class="nav-link">
+                  <p>Product Entry</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/product_list" class="nav-link">
+                  <p>Product List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon metismenu-icon pe-7s-graph3"></i>
+              <p>
+                History
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview sub-menu-line">
+              <li class="nav-item">
+                <a href="purchase_history" class="nav-link">
+                  <p>Purchase History</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="sales_history" class="nav-link">
+                  <p>Sales History</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-12">
+            <h1 class="m-0 text-dark">
+            <i ></i>Order</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="content">
+      <div class="container-fluid">
+        <% if(msg != ''){ %>
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <%= msg%>
+          </div>
+          <div class="d-none" >
+            <div id="Invoice" class="container bootdey" style="margin-top:10px;background:#eee;">
+              <div class="row invoice row-printable">
+                  <div class="col-lg-10">
+                      <div class="panel panel-default plain" id="dash_0">
+                          <div class="panel-body p-30">
+                              <div class="row">
+                                  <div class="col col-sm-6 col-md-6 col-lg-6">
+                                      <div class="invoice-logo"><img width="300" src="/public/images/logo.png" alt="Invoice logo">
+                                      <h4 style="margin-left: 28px;margin-bottom: 30px;margin-top: -10px;">Bakrani Road Larkana</h4></div>
+                                  </div>
+                                  <div class="col col-sm-6 col-md-6 col-lg-6 text-right">
+                                      <div class="invoice-logo" style="margin-top: 20px; margin-right:25px ;"><img width="200" height="110" src="/public/images/hispeed_logo.png" alt="Invoice logo">
+                                          <h4 style="margin-top: 25px;margin-left: 28px;margin-bottom: 30px;">Authorized Dealer Of HiSpeed</h4></div>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <div class="invoice-details mt-25">
+                                          <div class="well" style="background-color: #f5f5f5 !important;">
+                                              <ul class="list-unstyled mb-0">
+                                                <li><strong>Serial Number</strong>&nbsp;&nbsp;&nbsp; <%=invoiceInfo[0]%></li>
+                                                <li><strong>Date</strong>&nbsp;&nbsp;&nbsp; <%=invoiceInfo[1]%></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="invoice-to mt-25">
+                                        <table style="width: 85%;margin-left: 40px;margin-bottom: 16px;">
+                                          <tr>
+                                              <th><strong>Invoiced To</strong></th>
+                                              <td><%=invoiceInfo[0]%></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Name</th>
+                                              <td><%=invoiceInfo[2]%></td>
+                                          </tr>
+                                          <tr>
+                                              <th>CNIC</th>
+                                              <td><%=invoiceInfo[3]%></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Number</th>
+                                              <td><%=invoiceInfo[4]%></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Address</th>
+                                              <td><%=invoiceInfo[5]%></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Brand</th>
+                                              <td><%=invoiceInfo[6]%></td>
+                                          </tr>
+                                          <tr>
+                                            <th>Model</th>
+                                            <td><%=invoiceInfo[7]%></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Motor Type</th>
+                                              <td><%=invoiceInfo[8]%></td>
+                                          </tr>
+                                          <tr>
+                                              <th>CC</th>
+                                              <td><%=invoiceInfo[9]%></td>
+                                              </tr>
+                                          <tr>
+                                              <th>Color</th>
+                                              <td><%=invoiceInfo[10]%></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Engine Number</th>
+                                              <td><%=invoiceInfo[11]%></td>
+                                          </tr>
+                                          <tr>
+                                              <th>Chassis Number</th>
+                                              <td><%=invoiceInfo[12]%></td>
+                                          </tr>
+                                      </table>
+                                      </div>
+                                      <div cslass="invoice-items">
+                                          <div class="table-responsive" style="overflow: hidden; outline: none;" tabindex="0">
+                                              <table class="table table-bordered">
+                                                  <thead>
+                                                      <tr>
+                                                          <th class="per5 text-center">Qty</th>
+                                                          <th class="per25 text-center">Total</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                      <tr>
+                                                          <td class="text-center">1</td>
+                                                          <td class="text-center">RS <%=invoiceInfo[13]%></td>
+                                                      </tr>
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                          <div class="col-lg-6 "><p>Signature</p><hr style="border-top: 1px dashed#8c8b8b;"></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <script type="text/javascript" src="/public/js/printThis.js"></script>
+          <script>
+            $( function () {
+              $('#Invoice').printThis({
+                importCSS: true,
+                importStyle: true,
+                printContainer: true,
+                removeInline: false, 
+                removeInlineSelector: "*",
+                loadCSS: "http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css",
+                header: null,
+                footer: null, 
+                base: false
+              });
+            });
+          </script>
+          <%}else if(dangermsg != ''){%>
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <%= dangermsg%>
+            </div>
+            <%}%>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card card-default">
+                      <form action="/saveNewCustomerOrder" method="POST" id="saveOrder">
+                      <div class="card-body">
+                          <h2>New Customer Order</h2>
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <div class="form-group">
+                                  <label>S Number</label>
+                                  <div class="input-group">
+                                    <input id="n_s_number" type="text" name="s_number" class="form-control" readonly  />
+                                  </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-4">
+                              <div class="form-group">
+                                  <label>Date</label>
+                                  <div class="input-group">
+                                    <input type="text" class="recept_date form-control" readonly/>
+                                  </div>
+                              </div>
+                            </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <div class="input-group">
+                                      <input name="n_name" type="text" class="form-control" required/>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>CNIC</label>
+                                    <div class="input-group">
+                                      <input name="n_cnic" type="number" class="form-control" required/>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Number</label>
+                                    <div class="input-group">
+                                      <input type="number" name="n_number" class=" form-control" required/>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <div class="input-group">
+                                      <input name="n_address" type="text" class="form-control" required />
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Engine Number</label>
+                                    <div class="input-group">
+                                      <input id="n_engine_number" type="text" name="n_engine_number" class="form-control" required/>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Chasis Number</label>
+                                    <div class="input-group">
+                                      <input id="n_chasis_number" name="n_chasis_number" type="text" class="form-control" required readonly/>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Brand</label>
+                                    <div class="input-group">
+                                      <input type="text" id="n_brand" name="n_brand" class="form-control" required readonly>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Model</label>
+                                    <div class="input-group">
+                                      <input type="number" id="n_model" name="n_model" class="form-control" required readonly >
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Motor Type</label>
+                                    <div class="input-group">
+                                      <input type="text" id="n_motor_type" name="n_motor_type" class="form-control" required readonly  >
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>CC</label>
+                                    <div class="input-group">
+                                      <input type="text" id="n_cc" name="n_cc" class="form-control" required readonly  >
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Color</label>
+                                    <div class="input-group">
+                                      <input type="text" id="n_color" name="n_color" class="form-control" required readonly  >
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Total Price</label>
+                                    <div class="input-group">
+                                      <input id="n_total_prize" type="number" name="n_total_prize" class="form-control" required />
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="card-header bg-info">
+                        <div  align="center">
+                          <button type="submit" class="btn btn-warning">Generate Recipt</button>
+                        </div>
+                      </div>
+                      </form>
+                    </div>
+                  <div class="card card-default">
+                      <div class="card-body">
+                        
+                          <h2>Regular Customer Order</h2>
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <div class="form-group">
+                                  <label>Customer Id</label>
+                                  <div class="input-group">
+                                    <input id="r_customer_id" name="r_customer_id" type="text" class="form-control" value="C-" />
+                                  </div>
+                              </div>
+                            </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <div class="input-group">
+                                      <input id="r_name" name="r_name" type="text" class="form-control" readonly/>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Date</label>
+                                    <div class="input-group">
+                                      <input type="text" class="recept_date form-control" disabled/>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Cast</label>
+                                    <div class="input-group">
+                                      <input id="r_cast" name="r_cast" type="text" class="form-control" readonly/>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Number</label>
+                                    <div class="input-group">
+                                      <input id="r_number" name="r_number" type="number" class="form-control" readonly/>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>CNIC Number</label>
+                                    <div class="input-group">
+                                      <input id="r_cnic_number" name="r_cnic" type="number" class="form-control" readonly/>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <div class="input-group">
+                                      <input id="r_address" name="r_address" type="text" class="form-control" readonly/>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Engine Number</label>
+                                    <div class="input-group">
+                                      <input id="r_engine_number" name="r_engine_number" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Chasis Number</label>
+                                    <div class="input-group">
+                                      <input id="r_chachis_number" name="r_chasis_number" type="text" class="form-control" readonly  />
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Brand</label>
+                                    <input type="text" id="r_select_brand" name="r_brand" class="form-control" readonly >
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Model</label>
+                                    <input type="number" id="r_select_model" name="r_model" class="form-control"  readonly >
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Motor Type</label>
+                                    <div class="input-group">
+                                      <input id="r_motor_type" type="text" name="r_motor_type" class="form-control" readonly />
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>CC</label>
+                                    <div class="input-group">
+                                      <input id="r_cc" type="text" name="r_cc" class="form-control" readonly />
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Color</label>
+                                    <input type="text" id="r_select_color" name="r_color" class="form-control" readonly >
+                                </div>
+                              </div>
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Total Price</label>
+                                    <div class="input-group">
+                                      <input id="r_total_prize" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label> <br></label>
+                                    <div class="input-group">
+                                      <button id="r_add_order" type="button" class="btn btn-warning btn-block">Add Order</button>
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
+                    </div>
+                    <table class="table table-striped" id="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Customer Id</th>
+                          <th scope="col">Engine Number</th>
+                          <th scope="col">Chasis Number</th>
+                          <th scope="col">Brand</th>
+                          <th scope="col">Model</th>
+                          <th scope="col">Motor Type</th>
+                          <th scope="col">CC</th>
+                          <th scope="col">Color</th>
+                          <th scope="col">Total Price</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody id="r_tbody">
+                        <tr style="border-top: 2px solid #d10000;">
+                          <td colspan="2">
+                            <input id="r_cash" type="number" placeholder="Cash" class="form-control"/>
+                          </td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td id="r_all_total">-</td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="card-header bg-info">
+                      <div  align="center">
+                        <button type="button" id="showTableData" class="btn btn-warning">Generate Order</button>
+                      </div>
+                    </div>
+                    <div id="errMsg" class="m-3"></div>
+                  
+                    </div>
+                  </div>
+                
+        </div>
+          </div>
+      </div>
+    </section>
+  </div>
+  <footer class="main-footer">
+      <strong>Copyright 2020 | All Rights Reserved to BISMILLAH AUTOS | Developed by</strong>
+      <a href="url"><img src="/public/images/MWlogo.png"style="width:9%;"></a>
+  </footer>
+</div>
+<script src="/public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/public/dist/js/adminlte.min.js"></script>
+<script>
+    $(function () {
+    var d = new Date();
+    var month = d.getMonth()+1;
+    var day = d.getDate();
+    var output = ((''+day).length<2 ? '0' : '') + day+'/'+
+    ((''+month).length<2 ? '0' : '') + month + '/' + d.getFullYear();
+    $('.recept_date').val(output)
+ var r_all_total = 0;
+      $('#r_add_order').on('click',function(){
+        var r_customer_id=$('#r_customer_id').val()
+        var r_select_brand=$('#r_select_brand').val()
+        var r_select_model=$('#r_select_model').val()
+        var r_select_color=$('#r_select_color').val()
+        var r_engine_number=$('#r_engine_number').val()
+        var r_chachis_number=$('#r_chachis_number').val()
+        var r_motor_type=$('#r_motor_type').val()
+        var r_cc=$('#r_cc').val()
+        var r_total_prize=$('#r_total_prize').val()
+        if(r_customer_id != "" && r_select_brand != "" && r_select_model != "" && r_select_color != "" && r_engine_number != "" && r_chachis_number != "" && r_total_prize != ""){
+        var r_tbody = $('#r_tbody')
+        r_tbody.prepend(
+          '<tr>'+
+            '<td>'+ r_customer_id +'</td>'+
+            '<td>'+ r_engine_number +'</td>'+
+            '<td>'+ r_chachis_number +'</td>'+
+            '<td>'+ r_select_brand +'</td>'+
+            '<td>'+ r_select_model +'</td>'+
+            '<td>'+ r_motor_type +'</td>'+
+            '<td>'+ r_cc +'</td>'+
+            '<td>'+ r_select_color +'</td>'+
+            '<td>'+ r_total_prize +'</td>'+
+            '<td><a class="delete"><i class="fas fa-trash"></i></a></td>'+
+          '</tr>'
+        )
+        $('#r_select_color').val("")
+        $('#r_engine_number').val("")
+        $('#r_chachis_number').val("")
+        $('#r_select_brand').val("")
+        $('#r_select_model').val("")
+        $('#r_motor_type').val("")
+        $('#r_cc').val("")
+        $('#r_cash').val("")
+        $('#r_customer_id').attr('disabled', true)
+        r_all_total = parseInt(r_all_total) + parseInt(r_total_prize)
+          $('#r_all_total').text(r_all_total)
+        }
+})
+$("#table").on("click", ".delete", function() {
+            var c = confirm("Are you sure you want to delete this item")
+            if(c == true){
+              var price = $(this).closest("tr").find('td:eq(8)').text()
+              r_all_total = parseInt(r_all_total) - price
+              $('#r_all_total').text(r_all_total)
+              $(this).closest("tr").remove();
+              $('#r_cash').val("")
+            }
+      });
+$('#r_cash').on('keyup',function(){
+    var cash = $(this).val()
+    $('#r_all_total').text(r_all_total-cash)
+ })
+ $.get( '/getSerial', function(data) {
+      if(data.length > 0){
+        $('#n_s_number').val('S-'+data)
+      }
+    })
+        $( "#n_engine_number" ).autocomplete({
+          source: function(req, res){
+            $.ajax({
+              url:"/getEngineNums",
+              dataType:"jsonp",
+              type:'GET',
+              data: req,
+              success: function(data){
+                res(data)
+              },
+              error: function(){
+                console.log(err.status);
+              }
+            })
+        },
+        minLength:4,
+        select: function(event, ui){
+          if(ui.item){
+            $('#n_engine_number').text(ui.item.label);
+          }
+        }
+      })
+      $('#n_engine_number').keyup(function(){
+        var parameters = {engine_number: $(this).val()}
+        $.get( '/getDetails', parameters, function(data) {
+          if(data.length > 0){
+            $('#n_chasis_number').val(data[0].chasis_number)
+            $('#n_brand').val(data[0].brand)
+            $('#n_model').val(data[0].model)
+            $('#n_motor_type').val(data[0].motor_type)
+            $('#n_cc').val(data[0].cc)
+            $('#n_color').val(data[0].color)
+          }
+    })
+      })
+      $('#r_customer_id').keyup(function(){
+        var parameters = {c_id: $(this).val()}
+        $.get( '/getCustDetails', parameters, function(data) {
+          if(data.length > 0){
+            $('#r_name').val(data[0].name)
+            $('#r_cast').val(data[0].cast)
+            $('#r_number').val(data[0].number)
+            $('#r_cnic_number').val(data[0].cnic)
+            $('#r_address').val(data[0].address)
+          }else{
+            $('#r_name').val("")
+            $('#r_cast').val("")
+            $('#r_number').val("")
+            $('#r_cnic_number').val("")
+            $('#r_address').val("")
+          }
+    })
+      })
+      $( "#r_engine_number" ).autocomplete({
+          source: function(req, res){
+            $.ajax({
+              url:"/getEngineNums",
+              dataType:"jsonp",
+              type:'GET',
+              data: req,
+              success: function(data){
+                  res(data)
+              },
+              error: function(){
+                console.log(err.status);
+              }
+            })
+        },
+        minLength:4,
+        select: function(event, ui){
+          if(ui.item){
+            $('#r_engine_number').text(ui.item.label);
+          }
+        }
+      })
+      $('#r_engine_number').keyup(function(){
+        var parameters = {engine_number: $(this).val()}
+        $.get( '/getDetails', parameters, function(data) {
+          if(data.length > 0){
+            $('#r_chachis_number').val(data[0].chasis_number)
+            $('#r_select_brand').val(data[0].brand)
+            $('#r_select_model').val(data[0].model)
+            $('#r_motor_type').val(data[0].motor_type)
+            $('#r_cc').val(data[0].cc)
+            $('#r_select_color').val(data[0].color)
+          }
+    })
+      })
+      $('#showTableData').click( ()=> {
+        function storeTblValues()
+        {
+            var TableData = new Array();
+            $('#table tr').each(function (row, tr) {
+                TableData[row] = {
+                    "customer_id": $(tr).find('td:eq(0)').text()
+                    , "engine_number": $(tr).find('td:eq(1)').text()
+                    , "chasis_number": $(tr).find('td:eq(2)').text()
+                    , "brand": $(tr).find('td:eq(3)').text()
+                    , "model": $(tr).find('td:eq(4)').text()
+                    , "motor_type": $(tr).find('td:eq(5)').text()
+                    , "cc": $(tr).find('td:eq(6)').text()
+                    , "color": $(tr).find('td:eq(7)').text()
+                    , "prize": $(tr).find('td:eq(8)').text()
+                }
+            });
+            TableData.shift();
+            return TableData;
+        }
+        var allTotal = $('#r_all_total').text();
+        if(allTotal > 0){
+            TableData = $.toJSON(storeTblValues());
+            var tbl = JSON.parse(TableData)
+            var cash = $('#r_cash').val()
+            var name = $('#r_name').val()
+            var cast = $('#r_cast').val()
+            var number = $('#r_number').val()
+            var cnic = $('#r_cnic_number').val()
+            var address = $('#r_address').val()
+            var parameters = {tbl_data:tbl, cash:cash, allTotal: allTotal, name:name, cast:cast, number:number, cnic:cnic, address:address}
+            $.get( '/saveRegOrder', parameters, function(data) {
+              if(data.length > 0){
+                if(data == "Order Saved"){
+                  location.reload(true);
+                  alert('Order Saved')
+                }
+              }
+            })
+        }
+      })
+    });
+    </script>
+</body>
+</html>
